@@ -82,6 +82,7 @@ something tailored for async sequences fetched over the network (from a database
 
 - https://www.reactive-streams.org/
 - https://stackoverflow.com/questions/52820232/difference-between-infinite-java-stream-and-reactor-flux
+- https://blog.frankel.ch/backpressure-reactive-systems/
 
 
 
