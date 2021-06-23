@@ -1,6 +1,9 @@
 package info.jab.reactive.ch0.euler;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.math.BigDecimal;
 
 /**
  * Problem 20: Factorial digit sum
@@ -16,9 +19,30 @@ import reactor.core.publisher.Mono;
  */
 public class EulerProblem20 {
 
-    public Mono<Long> ReactorSolution(Long limit) {
+    /*
+     * Old-school testing ;)
+     */
+    public static void main(String[] args) {
+        // Non-Blocking way
+        factorial(100).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
+        factorial(10).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
 
-        return null;
+        // Blocking way
+        System.out.print(factorial(10).block().toString().chars().mapToLong(Character::getNumericValue).sum());
+        System.out.print(factorial(100).block().toString().chars().mapToLong(Character::getNumericValue).sum());
+    }
+
+    public Mono<Long> ReactorSolution(Long limit) {
+        return  Mono.justOrEmpty(factorial(limit.intValue()).block().toString().chars()
+                .mapToLong(Character::getNumericValue)
+                .sum());
+    }
+
+    /*
+     * Method to calculate factorial
+     */
+    private static Mono<BigDecimal> factorial(Integer number) {
+        return Flux.range(1,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
     }
 
 }
