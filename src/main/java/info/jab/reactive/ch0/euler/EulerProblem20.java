@@ -40,7 +40,6 @@ public class EulerProblem20 {
      * Method to calculate factorial
      *
      */
-    @Deprecated
     private static Mono<BigDecimal> factorial(Integer number) {
         return Flux.range(1,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
     }
