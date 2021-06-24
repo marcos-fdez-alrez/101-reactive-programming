@@ -33,7 +33,7 @@ public class EulerProblem20 {
     }
 
     public Mono<Long> ReactorSolution(Long limit) {
-            return Flux.range(2,limit.intValue()).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y))
+            return Flux.range(1,limit.intValue()).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y))
                     .map(x -> x.toString().chars().mapToLong(Character::getNumericValue).sum());
     }
 
@@ -43,7 +43,7 @@ public class EulerProblem20 {
      */
     @Deprecated
     private static Mono<BigDecimal> factorial(Integer number) {
-        return Flux.range(2,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
+        return Flux.range(1,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
     }
 
 }
