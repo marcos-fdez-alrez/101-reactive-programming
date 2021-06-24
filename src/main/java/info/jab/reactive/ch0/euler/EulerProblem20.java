@@ -23,26 +23,27 @@ public class EulerProblem20 {
      * Old-school testing ;)
      */
     public static void main(String[] args) {
-        // Non-Blocking way
-        factorial(100).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
-        factorial(10).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
+        // Non-Blocking way - NOT IN USE
+        // factorial(100).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
+        // factorial(10).subscribe(result -> System.out.println(result.toString().chars().mapToLong(Character::getNumericValue).sum()));
 
-        // Blocking way
-        System.out.print(factorial(10).block().toString().chars().mapToLong(Character::getNumericValue).sum());
-        System.out.print(factorial(100).block().toString().chars().mapToLong(Character::getNumericValue).sum());
+        // Blocking way - NOT IN USE
+        // System.out.print(factorial(10).block().toString().chars().mapToLong(Character::getNumericValue).sum());
+        // System.out.print(factorial(100).block().toString().chars().mapToLong(Character::getNumericValue).sum());
     }
 
     public Mono<Long> ReactorSolution(Long limit) {
-        return  Mono.justOrEmpty(factorial(limit.intValue()).block().toString().chars()
-                .mapToLong(Character::getNumericValue)
-                .sum());
+            return Flux.range(2,limit.intValue()).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y))
+                    .map(x -> x.toString().chars().mapToLong(Character::getNumericValue).sum());
     }
 
     /*
      * Method to calculate factorial
+     *
      */
+    @Deprecated
     private static Mono<BigDecimal> factorial(Integer number) {
-        return Flux.range(1,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
+        return Flux.range(2,number).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y));
     }
 
 }
