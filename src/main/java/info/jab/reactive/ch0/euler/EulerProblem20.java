@@ -33,8 +33,7 @@ public class EulerProblem20 {
     }
 
     public Mono<Long> ReactorSolution(Long limit) {
-            return Flux.range(1,limit.intValue()).map(BigDecimal::valueOf).reduce((x, y) -> x.multiply(y))
-                    .map(x -> x.toString().chars().mapToLong(Character::getNumericValue).sum());
+        return factorial(limit.intValue()).map(x -> x.toString().chars().mapToLong(Character::getNumericValue).sum());
     }
 
     /*
